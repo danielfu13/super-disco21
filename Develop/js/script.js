@@ -1,21 +1,55 @@
 
 //var todayDate = new Date();
-//document.getElementById('current-date').innerHTML=todayDate;
-var todayDate = new Date();
-var date = todayDate.getFullYear()+'-'+(todayDate.getMonth()+1)+'-'+todayDate.getDate();
-var time = todayDate.getHours() + ":" + todayDate.getMinutes() + ":" + todayDate.getSeconds();
-var dateTime = date+' '+time;
-document.getElementById('current-date').innerHTML= dateTime;
 
-var am9 = todayDate.getHours(9);
-var am10 = todayDate.getHours(10);
-var am11 = todayDate.getHours(11);
-var pm12 = todayDate.getHours(12);
-var pm1 = todayDate.getHours(13);
-var pm2 = todayDate.getHours(14);
-var pm3 = todayDate.getHours(15);
-var pm4 = todayDate.getHours(16);
-var pm5 = todayDate.getHours(17);
- 
-var currentHour = [am9, am10, am11, pm12, pm1, pm2, pm3, pm4, pm5];
+//var todayDate = moment().format("dddd, MMMM Do");
+//document.getElementById('current-date').innerHTML=todayDate;
+//var date = todayDate.getFullYear()+'-'+(todayDate.getMonth()+1)+'-'+todayDate.getDate();
+//var time = todayDate.getHours() + ":" + todayDate.getMinutes() + ":" + todayDate.getSeconds();
+//var dateTime = date+' '+time;
+//document.getElementById('current-date').innerHTML= dateTime;
+$(document).ready(function () {
+    $("#current-date").text(moment().format("MMMM Do YYYY, h:mma"));
+    $(".saveBtn").on("click", function () {
+        var text = $(this).siblings(".description").val();
+        var time = $(this).parent().attr("id");
+
+        localStorage.setItem(time, text);
+    })
+
+    $("#am9 .description").val(localStorage.getItem("am9"));
+    $("#am10 .description").val(localStorage.getItem("am10"));
+    $("#am11 .description").val(localStorage.getItem("am11"));
+    $("#pm12 .description").val(localStorage.getItem("pm12"));
+    $("#pm1 .description").val(localStorage.getItem("pm1"));
+    $("#pm2 .description").val(localStorage.getItem("pm2"));
+    $("#pm3 .description").val(localStorage.getItem("pm3"));
+    $("#pm4 .description").val(localStorage.getItem("pm4"));
+    $("#pm5 .description").val(localStorage.getItem("pm5"));
+
+    function showTime() {
+        var currentTime = moment().hour();
+     
+        $(".row").each(function () {
+            var currentHour = parseInt($(this).attr("id").split("current-time")[1]);
+            console.log(currentHour, currentTime)
+
+            if (currentHour < currentHour) {
+                $(this).addClass("past");
+                $(this).removeClass("future");
+                $(this).removeClass("present");
+            }
+            else if (currentHour === currentHour) {
+                $(this).removeClass("past");
+                $(this).addClass("present");
+                $(this).removeClass("future");
+            }
+            else {
+                $(this).removeClass("present");
+                $(this).removeClass("past");
+                $(this).addClass("future");
+            }
+        })
+    }
+    showTime();
+})
 

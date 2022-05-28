@@ -30,6 +30,12 @@ textarea{
   border-radius: 15px;
 }
 
+.current-time{
+  color:black;
+  font-weight: bold;
+  
+}
+
 .row {
   white-space: pre-wrap;
   height: 80px;
